@@ -266,18 +266,40 @@ class LocalImageBackend:
             sock.settimeout(0.2)
             return sock.connect_ex((self.host, self.port)) == 0
 
-    def find_launch_target(self):
-        candidates = [
-            self.backend_dir / "launch-api.bat",
-            self.backend_dir / "start-image-backend.bat",
-            self.backend_dir / "webui-user.bat",
-            self.backend_dir / "webui.bat",
-            self.backend_dir / "run.bat",
-            self.backend_dir / "ComfyUI_windows_portable" / "run_nvidia_gpu.bat",
-            self.backend_dir / "ComfyUI_windows_portable" / "run_cpu.bat",
-            self.backend_dir / "ComfyUI_windows_portable_nvidia" / "run_nvidia_gpu.bat",
-            self.backend_dir / "ComfyUI_windows_portable_nvidia" / "run_cpu.bat",
+    def _candidate_backend_roots(self):
+        return [
+            self.backend_dir,
+            self.backend_dir / "ComfyUI",
+            self.backend_dir / "ComfyUI-mac",
+            self.backend_dir / "ComfyUI_mac",
+            self.backend_dir / "ComfyUI_windows_portable",
+            self.backend_dir / "ComfyUI_windows_portable_nvidia",
         ]
+
+    def find_launch_target(self):
+        launch_names = [
+            "launch-api.sh",
+            "start-image-backend.sh",
+            "run.sh",
+            "start.sh",
+            "webui.sh",
+            "webui-user.sh",
+            "launch-api.command",
+            "start-image-backend.command",
+            "run.command",
+            "start.command",
+            "launch-api.bat",
+            "start-image-backend.bat",
+            "webui-user.bat",
+            "webui.bat",
+            "run.bat",
+            "run_nvidia_gpu.bat",
+            "run_cpu.bat",
+        ]
+        candidates = []
+        for root in self._candidate_backend_roots():
+            for launch_name in launch_names:
+                candidates.append(root / launch_name)
         for candidate in candidates:
             if candidate.exists():
                 return candidate
@@ -311,12 +333,15 @@ class LocalImageBackend:
             "env": self._launch_env(),
         }
 
-        if launch_target.suffix.lower() in {".bat", ".cmd"}:
+        suffix = launch_target.suffix.lower()
+        if suffix in {".bat", ".cmd"}:
             cmd = ["cmd", "/c", str(launch_target)]
+        elif suffix in {".sh", ".command"}:
+            cmd = ["/bin/bash", str(launch_target)]
         else:
             cmd = [str(launch_target)]
 
-        if launch_target.suffix.lower() in {".exe", ".bat", ".cmd"}:
+        if suffix in {".exe", ".bat", ".cmd"}:
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
             popen_kwargs["startupinfo"] = startupinfo
@@ -439,11 +464,7 @@ class LocalImageBackend:
         raise RuntimeError("ComfyUI did not finish generating an image in time.")
 
     def _workflow_dir_candidates(self):
-        return [
-            self.backend_dir / "workflows",
-            self.backend_dir / "ComfyUI_windows_portable" / "workflows",
-            self.backend_dir / "ComfyUI_windows_portable_nvidia" / "workflows",
-        ]
+        return [root / "workflows" for root in self._candidate_backend_roots()]
 
     def _workflow_template_path(self, style_name):
         preferred = "premium-poster.json" if "poster" in str(style_name or "").lower() else "text-to-image.json"
@@ -571,12 +592,14 @@ class LocalImageBackend:
         }
 
     def _guess_comfy_checkpoint_name(self):
-        model_dirs = [
-            self.backend_dir / "ComfyUI" / "models" / "checkpoints",
-            self.backend_dir / "ComfyUI_windows_portable" / "ComfyUI" / "models" / "checkpoints",
-            self.backend_dir / "ComfyUI_windows_portable_nvidia" / "ComfyUI" / "models" / "checkpoints",
-            self.backend_dir / "models" / "checkpoints",
-        ]
+        model_dirs = []
+        for root in self._candidate_backend_roots():
+            model_dirs.extend(
+                [
+                    root / "models" / "checkpoints",
+                    root / "ComfyUI" / "models" / "checkpoints",
+                ]
+            )
         for model_dir in model_dirs:
             if not model_dir.exists():
                 continue
