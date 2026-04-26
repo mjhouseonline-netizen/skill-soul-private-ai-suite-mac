@@ -14,6 +14,7 @@ It is separate from the Windows website and release repository on purpose.
 - `runtime-bin-mac/` - placeholder for the bundled Mac `llama.cpp` runtime
 - `ocr-bin-mac/` - placeholder for the bundled Mac OCR payload
 - `image-backend-bin-mac/` - placeholder for the bundled Mac image backend
+- `SOURCING-PAYLOADS.md` - exact sourcing guidance for the missing Mac payloads
 
 ## Build options
 

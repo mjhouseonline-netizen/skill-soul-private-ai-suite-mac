@@ -51,6 +51,10 @@ This repo now includes placeholder folders for:
 
 Fill those folders with the real macOS payloads before producing a final release build.
 
+For direct sourcing guidance, see:
+
+- `SOURCING-PAYLOADS.md`
+
 If you intentionally stored mac-ready assets in the generic folder names, you can opt in with:
 
 ```bash
