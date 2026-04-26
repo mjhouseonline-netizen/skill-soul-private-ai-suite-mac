@@ -22,6 +22,17 @@ Source:
 
 - [ggml-org/llama.cpp releases](https://github.com/ggml-org/llama.cpp/releases)
 
+As of the latest checked release, example macOS assets include:
+
+- `llama-b8833-bin-macos-arm64.tar.gz`
+- `llama-b8833-bin-macos-arm64-kleidiai.tar.gz`
+- `llama-b8833-bin-macos-x64.tar.gz`
+
+Recommended first-release choice:
+
+- use the plain `macos-arm64` archive for Apple Silicon
+- use `macos-x64` only if you specifically want Intel Mac support
+
 Recommended asset types:
 
 - macOS Apple Silicon (`arm64`) if targeting modern Macs

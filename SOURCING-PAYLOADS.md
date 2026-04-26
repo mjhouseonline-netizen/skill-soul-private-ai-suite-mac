@@ -25,6 +25,12 @@ What to download:
 - for Apple Silicon: a macOS `arm64` release archive
 - for Intel Mac: a macOS `x64` release archive
 
+As of the latest checked release, examples include:
+
+- `llama-b8833-bin-macos-arm64.tar.gz`
+- `llama-b8833-bin-macos-arm64-kleidiai.tar.gz`
+- `llama-b8833-bin-macos-x64.tar.gz`
+
 Typical asset names change over time, but look for names like:
 
 - `llama-<version>-bin-macos-arm64.tar.gz`
@@ -34,12 +40,18 @@ What to copy into `runtime-bin-mac/`:
 - `llama-server`
 - any required `.dylib` files shipped beside it
 
+Recommended first-release choice:
+
+- use the plain `macos-arm64` archive for Apple Silicon Macs
+- skip the `kleidiai` variant unless you intentionally want that specific build
+
 What to do next:
 1. extract the release archive
 2. find `llama-server`
 3. copy `llama-server` into `runtime-bin-mac/`
 4. copy any required `.dylib` files into `runtime-bin-mac/`
 5. keep the files flat in that folder unless you intentionally change the app-side lookup
+6. do not rename `llama-server`
 
 ### `ocr-bin-mac/`
 
