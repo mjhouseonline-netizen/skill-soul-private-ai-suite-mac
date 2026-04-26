@@ -11,6 +11,9 @@ It is separate from the Windows website and release repository on purpose.
 - `assets/` - branding files and icon source image
 - `build-mac.sh` - local macOS build script
 - `.github/workflows/build-mac.yml` - GitHub Actions workflow for cloud mac builds
+- `runtime-bin-mac/` - placeholder for the bundled Mac `llama.cpp` runtime
+- `ocr-bin-mac/` - placeholder for the bundled Mac OCR payload
+- `image-backend-bin-mac/` - placeholder for the bundled Mac image backend
 
 ## Build options
 

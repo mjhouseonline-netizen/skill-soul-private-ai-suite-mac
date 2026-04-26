@@ -43,6 +43,14 @@ The mac build script only bundles the mac-specific folders by default so it does
 
 If those folders do not exist, the build still completes, but that feature will be unavailable on the mac app until you add the bundle.
 
+This repo now includes placeholder folders for:
+
+- `runtime-bin-mac/`
+- `image-backend-bin-mac/`
+- `ocr-bin-mac/`
+
+Fill those folders with the real macOS payloads before producing a final release build.
+
 If you intentionally stored mac-ready assets in the generic folder names, you can opt in with:
 
 ```bash
