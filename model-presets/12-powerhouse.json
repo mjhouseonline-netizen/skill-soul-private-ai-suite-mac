@@ -1,0 +1,11 @@
+{
+  "name": "12 \u00b7 Powerhouse \u2014 Flagship",
+  "model": "Meta-Llama-3-70B-Instruct-Q2_K.gguf",
+  "systemPrompt": "You are an exceptionally capable AI assistant. Provide nuanced, thorough, expert-level responses. Think step by step. Be comprehensive.",
+  "temperature": 0.7,
+  "maxTokens": 8192,
+  "contextLength": 32768,
+  "topP": 0.9,
+  "repeatPenalty": 1.05,
+  "note": "Best for: complex tasks, long documents, best quality output (16GB+ RAM)"
+}

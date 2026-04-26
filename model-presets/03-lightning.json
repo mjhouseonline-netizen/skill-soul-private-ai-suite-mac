@@ -1,0 +1,11 @@
+{
+  "name": "03 \u00b7 Lightning \u2014 Speed Mode",
+  "model": "gemma-2-2b-it-Q4_K_M.gguf",
+  "systemPrompt": "You are a fast assistant. Keep responses short and focused.",
+  "temperature": 0.6,
+  "maxTokens": 512,
+  "contextLength": 4096,
+  "topP": 0.85,
+  "repeatPenalty": 1.15,
+  "note": "Best for: quick lookups, simple rewrites (6GB+ RAM)"
+}

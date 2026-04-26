@@ -1,0 +1,11 @@
+{
+  "name": "10 \u00b7 Developer \u2014 Coding",
+  "model": "DeepSeek-Coder-V2-Lite-Instruct-Q4_K_M.gguf",
+  "systemPrompt": "You are an expert software engineer. Write clean, efficient, well-commented code. Explain your reasoning. Always consider edge cases. Format code in proper markdown code blocks.",
+  "temperature": 0.4,
+  "maxTokens": 4096,
+  "contextLength": 16384,
+  "topP": 0.85,
+  "repeatPenalty": 1.1,
+  "note": "Best for: code generation, debugging, code review (10GB+ RAM)"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "11 \u00b7 Balanced \u2014 All-Purpose",
+  "model": "Meta-Llama-3.1-8B-Instruct-Q6_K.gguf",
+  "systemPrompt": "You are a highly capable, balanced assistant. You excel at analysis, writing, research, and reasoning. Give thorough, accurate responses.",
+  "temperature": 0.75,
+  "maxTokens": 4096,
+  "contextLength": 16384,
+  "topP": 0.9,
+  "repeatPenalty": 1.1,
+  "note": "Best for: general use, analysis, writing, research (12GB+ RAM)"
+}

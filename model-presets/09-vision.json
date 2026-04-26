@@ -1,0 +1,11 @@
+{
+  "name": "09 \u00b7 Vision \u2014 Image Understanding",
+  "model": "moondream2-text-model-f16.gguf",
+  "systemPrompt": "You are a precise visual assistant. Describe images accurately and answer questions about visual content.",
+  "temperature": 0.5,
+  "maxTokens": 1024,
+  "contextLength": 4096,
+  "topP": 0.85,
+  "repeatPenalty": 1.1,
+  "note": "Best for: image Q&A, photo analysis, visual descriptions (8GB+ RAM)"
+}

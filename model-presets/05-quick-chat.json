@@ -1,0 +1,11 @@
+{
+  "name": "05 \u00b7 Quick Chat \u2014 Conversational",
+  "model": "Mistral-7B-Instruct-v0.3-Q4_K_M.gguf",
+  "systemPrompt": "You are a friendly, conversational assistant. Engage naturally, ask follow-up questions when helpful.",
+  "temperature": 0.85,
+  "maxTokens": 2048,
+  "contextLength": 8192,
+  "topP": 0.92,
+  "repeatPenalty": 1.05,
+  "note": "Best for: conversation, brainstorming, planning (8GB+ RAM)"
+}

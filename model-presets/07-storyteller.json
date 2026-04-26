@@ -1,0 +1,11 @@
+{
+  "name": "07 \u00b7 Storyteller \u2014 Creative Writing",
+  "model": "Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf",
+  "systemPrompt": "You are a gifted creative writer and storyteller. Write with vivid detail, strong characters, and compelling narrative. Embrace fiction, roleplay, and imaginative scenarios fully.",
+  "temperature": 0.95,
+  "maxTokens": 4096,
+  "contextLength": 16384,
+  "topP": 0.95,
+  "repeatPenalty": 1.05,
+  "note": "Best for: fiction, stories, roleplay, worldbuilding (8GB+ RAM)"
+}

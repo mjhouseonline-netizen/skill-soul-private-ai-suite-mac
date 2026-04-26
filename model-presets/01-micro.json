@@ -1,0 +1,11 @@
+{
+  "name": "01 \u00b7 Micro \u2014 Ultra Fast",
+  "model": "Phi-3-mini-4k-instruct-q4.gguf",
+  "systemPrompt": "You are a fast, helpful assistant. Give concise answers.",
+  "temperature": 0.7,
+  "maxTokens": 512,
+  "contextLength": 4096,
+  "topP": 0.9,
+  "repeatPenalty": 1.1,
+  "note": "Best for: quick answers, low-RAM machines (4GB+)"
+}

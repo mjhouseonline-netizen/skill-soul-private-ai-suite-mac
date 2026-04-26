@@ -1,0 +1,11 @@
+{
+  "name": "02 \u00b7 Spark \u2014 Daily Driver",
+  "model": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
+  "systemPrompt": "You are a smart, efficient assistant. Be helpful, clear, and concise.",
+  "temperature": 0.75,
+  "maxTokens": 1024,
+  "contextLength": 8192,
+  "topP": 0.9,
+  "repeatPenalty": 1.1,
+  "note": "Best for: emails, summaries, daily tasks (6GB+ RAM)"
+}

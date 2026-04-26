@@ -1,0 +1,11 @@
+{
+  "name": "04 \u00b7 Snapshot \u2014 Vision",
+  "model": "llava-1.6-mistral-7b.Q4_K_M.gguf",
+  "systemPrompt": "You are a vision-capable assistant. Describe and analyze images clearly and in detail.",
+  "temperature": 0.7,
+  "maxTokens": 1024,
+  "contextLength": 4096,
+  "topP": 0.9,
+  "repeatPenalty": 1.1,
+  "note": "Best for: image analysis, screenshots, diagrams (8GB+ RAM)"
+}

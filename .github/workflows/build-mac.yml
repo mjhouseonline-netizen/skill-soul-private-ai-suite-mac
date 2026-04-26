@@ -1,0 +1,48 @@
+name: Build macOS Installer
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_arch:
+        description: "macOS target architecture"
+        required: true
+        default: "arm64"
+        type: choice
+        options:
+          - arm64
+          - x86_64
+          - universal2
+
+jobs:
+  build-mac:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install create-dmg
+        run: brew install create-dmg
+
+      - name: Make build script executable
+        run: chmod +x build-mac.sh
+
+      - name: Build mac app
+        env:
+          MAC_TARGET_ARCH: ${{ inputs.target_arch }}
+        run: ./build-mac.sh
+
+      - name: Upload mac artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: offline-ai-workstation-mac-${{ inputs.target_arch }}
+          path: |
+            dist/mac/*.dmg
+            dist/mac/*.zip
+            dist/mac/*.app
+          if-no-files-found: warn
