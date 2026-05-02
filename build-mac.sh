@@ -64,7 +64,7 @@ echo "Using Python: $PYTHON_BIN"
 echo "Target arch: $TARGET_ARCH"
 echo ""
 
-"$PYTHON_BIN" -m pip install --quiet --upgrade pyinstaller pillow pypdf
+"$PYTHON_BIN" -m pip install --quiet --upgrade pyinstaller pillow pypdf certifi
 
 mkdir -p "$OUT" "$BUILD"
 

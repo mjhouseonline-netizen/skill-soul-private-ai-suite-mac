@@ -3,6 +3,7 @@ import os
 import subprocess
 import shutil
 import socket
+import ssl
 import base64
 import tempfile
 import threading
@@ -37,6 +38,11 @@ try:
     import pypdf  # type: ignore
 except Exception:
     pypdf = None
+
+try:
+    import certifi  # type: ignore
+except Exception:
+    certifi = None
 
 try:
     from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageOps, ImageStat, ImageTk  # type: ignore
@@ -136,6 +142,24 @@ HTTP_HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
     "Connection": "keep-alive",
 }
+
+
+def create_ssl_context():
+    if certifi is not None:
+        try:
+            cafile = certifi.where()
+            if cafile and Path(cafile).exists():
+                return ssl.create_default_context(cafile=cafile)
+        except Exception:
+            pass
+    return ssl.create_default_context()
+
+
+SSL_CONTEXT = create_ssl_context()
+
+
+def safe_urlopen(request, timeout=60):
+    return urllib.request.urlopen(request, timeout=timeout, context=SSL_CONTEXT)
 
 MODELS = [
     {
@@ -2079,7 +2103,7 @@ def detect_sd_backend(base_url):
         method="GET",
     )
     try:
-        with urllib.request.urlopen(request, timeout=3) as response:
+        with safe_urlopen(request, timeout=3) as response:
             if response.status == 200:
                 return True, f"Connected to local Stable Diffusion backend at {base_url}", "sdapi"
     except Exception:
@@ -2090,7 +2114,7 @@ def detect_sd_backend(base_url):
         method="GET",
     )
     try:
-        with urllib.request.urlopen(request, timeout=3) as response:
+        with safe_urlopen(request, timeout=3) as response:
             if response.status == 200:
                 return True, f"Connected to local ComfyUI backend at {base_url}", "comfyui"
             return False, f"Backend at {base_url} did not expose a supported image API.", None
@@ -2108,7 +2132,7 @@ def comfyui_queue_status(base_url):
         method="GET",
     )
     try:
-        with urllib.request.urlopen(request, timeout=3) as response:
+        with safe_urlopen(request, timeout=3) as response:
             body = json.loads(response.read().decode("utf-8"))
         running = body.get("queue_running") or []
         pending = body.get("queue_pending") or []
@@ -2149,7 +2173,7 @@ def generate_sd_image(prompt, output_path, base_url, size=(1024, 1024), referenc
         headers={"Content-Type": "application/json"},
         method="POST",
     )
-    with urllib.request.urlopen(request, timeout=600) as response:
+    with safe_urlopen(request, timeout=600) as response:
         body = json.loads(response.read().decode("utf-8"))
 
     images = body.get("images") or []
@@ -2375,7 +2399,7 @@ class InstallWorker:
 
         try:
             request = urllib.request.Request(url, headers=HTTP_HEADERS)
-            with urllib.request.urlopen(request, timeout=60) as response, open(tmp_dest, "wb") as out_file:
+            with safe_urlopen(request, timeout=60) as response, open(tmp_dest, "wb") as out_file:
                 total_size = int(response.headers.get("Content-Length") or 0)
                 downloaded = 0
                 while True:
