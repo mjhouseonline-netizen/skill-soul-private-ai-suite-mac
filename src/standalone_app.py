@@ -34,6 +34,17 @@ def ensure_dir(path):
     return path
 
 
+def open_in_file_manager(path):
+    target = str(Path(path))
+    if os.name == "nt":
+        os.startfile(target)
+        return
+    if sys.platform == "darwin":
+        subprocess.run(["open", target], check=True)
+        return
+    subprocess.run(["xdg-open", target], check=True)
+
+
 try:
     import pypdf  # type: ignore
 except Exception:
@@ -3754,7 +3765,7 @@ class StandaloneApp(tk.Tk):
             folder = self.sys_info["images_dir"]
         ensure_dir(folder)
         try:
-            os.startfile(str(folder))
+            open_in_file_manager(folder)
             self._image_status_var.set(f"Opened image folder: {folder}")
         except Exception as exc:
             self._image_status_var.set(f"Could not open image folder: {exc}")
@@ -3885,7 +3896,7 @@ class StandaloneApp(tk.Tk):
         folder = self.sys_info["image_backend_dir"]
         folder.mkdir(parents=True, exist_ok=True)
         try:
-            os.startfile(str(folder))
+            open_in_file_manager(folder)
             self._image_status_var.set(f"Opened image backend folder: {folder}")
         except Exception as exc:
             self._image_status_var.set(f"Could not open image backend folder: {exc}")
@@ -4657,9 +4668,7 @@ class StandaloneApp(tk.Tk):
         folder = self.sys_info["knowledge_dir"]
         folder.mkdir(parents=True, exist_ok=True)
         try:
-            import os
-
-            os.startfile(str(folder))
+            open_in_file_manager(folder)
             if self._workspace_status:
                 self._workspace_status.config(text=f"Opened knowledge folder: {folder}")
         except Exception as exc:
